@@ -81,7 +81,7 @@ This project follows a **modular clean architecture** pattern. It ensures high m
 ## 🚀 Project Setup
 
 ### Prerequisites
-- Go 1.21 or higher
+- Go 1.25 or higher
 - MySQL 8.0 or higher
 - Make
 
