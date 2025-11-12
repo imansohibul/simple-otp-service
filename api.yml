@@ -1,0 +1,144 @@
+# References
+# 1. https://swagger.io/specification/
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: User Service
+  license:
+    name: MIT
+servers:
+  - url: /api/v1
+paths:
+  /otp/request:
+    post:
+      tags:
+        - OTP
+      summary: Request a new OTP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestOtpBody'
+      responses:
+        '200':
+          description: OTP has been sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RequestOtpResponseSuccess"
+        '429':
+          description: "Too Many Requests (rate limiting)"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /otp/validate:
+    post:
+      tags:
+        - OTP
+      summary: Validate an OTP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateOtpBody'
+      responses:
+        '200':
+          description: OTP validated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidateOtpResponseSuccess"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    RequestOtpBody:
+      type: object
+      required:
+        - user_id
+      properties:
+        user_id:
+          type: string
+          minLength: 1
+          example: "robert"
+          description: The unique identifier of the user requesting the OTP.
+    RequestOtpResponseSuccess:
+      type: object
+      required:
+        - user_id
+        - otp
+      properties:
+        user_id:
+          type: string
+          example: "robert"
+          description: The unique identifier of the user who requested the OTP.
+        otp:
+          type: string
+          example: "123909"
+          description: The one-time password (OTP) generated for the user."
+    ValidateOtpBody:
+      type: object
+      required:
+        - user_id
+        - otp
+      properties:
+        user_id:
+          type: string
+          example: "robert"
+          description: The unique identifier of the user who requested the OTP.
+        otp:
+          type: string
+          example: "123909"
+          description: The one-time password (OTP) generated for the user.
+    ValidateOtpResponseSuccess:
+      type: object
+      required:
+        - user_id
+        - message
+      properties:
+        user_id:
+          type: string
+          example: "robert"
+          description: The unique identifier of the user who requested the OTP.
+        message:
+          type: string
+          example: OTP Validated successfully
+    ErrorResponse:
+      type: object
+      required:
+        - error
+        - error_description
+      properties:
+        error:
+          type: string
+          example: "otp_not_found"
+          description: The error code.
+        error_description:
+          type: string
+          example: "OTP Not Found"
+          description: The error message.
