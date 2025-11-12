@@ -7,6 +7,7 @@
 # Build output directories
 /bin/
 /build/_output/
+/build/
 
 # Go build artifacts
 *.exe
