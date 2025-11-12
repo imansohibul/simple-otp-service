@@ -25,6 +25,8 @@ func NewOtpUsecase(otpRepo OTPRepository, otpGenerator OTPGenerator) *otpUsecase
 	}
 }
 
+// Create generates a new OTP for the specified user and stores it in the system.
+// The OTP will have an expiration time and can only be used once.
 func (o *otpUsecase) Create(ctx context.Context, userID string) (*entity.OTP, error) {
 	// Check rate limiting
 	lastOTP, _ := o.otpRepo.GetLastByUserID(ctx, userID)
@@ -52,6 +54,9 @@ func (o *otpUsecase) Create(ctx context.Context, userID string) (*entity.OTP, er
 	return otp, nil
 }
 
+// Validate verifies that the provided OTP code is valid for the specified user.
+// This checks if the code matches, hasn't expired, and hasn't been used before.
+// Upon successful validation, the OTP should be marked as validated.
 func (o *otpUsecase) Validate(ctx context.Context, userID string, otpCode string) (*entity.OTP, error) {
 	otp, err := o.otpRepo.FindByUserIDAndCode(ctx, userID, otpCode)
 	if err != nil {
