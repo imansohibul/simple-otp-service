@@ -69,8 +69,7 @@ This project follows a **modular clean architecture** pattern. It ensures high m
 ├── .gitignore               # Git ignore file
 ├── api.yml                  # API specification (OpenAPI/Swagger)
 ├── coverage.out             # Test coverage output
-├── docker-compose.yml       # Defines services (API, DB) for deployment
-├── Dockerfile               # Docker build context
+├── docker-compose.yml       # Defines services (DB) for development
 ├── env.sample               # Sample environment configuration
 ├── go.mod                   # Go module dependencies
 ├── go.sum                   # Go module checksums
