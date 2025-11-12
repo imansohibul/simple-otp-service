@@ -1,13 +1,4 @@
 services:
-  app:
-    build: .
-    ports:
-      - "8080:1323"
-    environment:
-      DATABASE_URL: "mysql://mysqldev:mysqldev@tcp(db:3306)/database?parseTime=true"
-    depends_on:
-      db:
-        condition: service_healthy
   db:
     platform: linux/x86_64
     image: mysql:8.0

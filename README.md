@@ -190,7 +190,6 @@ docker-compose up -d
 ```
 
 This will start:
-- OTP Service API
 - MySQL Database
 
 ## 🔧 Development Workflow
