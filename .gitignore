@@ -1,4 +1,33 @@
+# Environment files
 .env
-.vscode
-/bin
-/build/_output
+
+# VSCode settings
+.vscode/
+
+# Build output directories
+/bin/
+/build/_output/
+
+# Go build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, coverage reports
+*.test
+*.out
+coverage.out
+
+# Go workspace / module cache
+/pkg/
+vendor/
+
+# IDE/editor specific files
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
